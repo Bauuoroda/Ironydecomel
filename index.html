@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Iron & Deco Mel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #f0f4f8, #c9d6df);
+      overflow-x: hidden;
+      color: #333;
+    }
+    header {
+      background: #ff8c00;
+      color: white;
+      text-align: center;
+      padding: 1.8rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+    header img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid white;
+      box-shadow: 0 0 10px rgba(255, 140, 0, 0.8);
+    }
+    header h1 {
+      font-weight: 700;
+      font-size: 2.2rem;
+      margin: 0;
+      user-select: none;
+    }
+    header p {
+      font-weight: 400;
+      margin: 5px 0 0;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: #fff8e1;
+    }
+    #buscador {
+      margin: 1.5rem auto;
+      text-align: center;
+    }
+    #buscador input {
+      width: 90%;
+      max-width: 420px;
+      padding: 12px 15px;
+      border-radius: 12px;
+      border: 1.5px solid #ff8c00;
+      font-size: 18px;
+      box-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
+      transition: 0.3s ease all;
+    }
+    #buscador input:focus {
+      outline: none;
+      box-shadow: 0 0 20px rgba(255, 140, 0, 0.7);
+      border-color: #ff6f00;
+    }
+    .catalogo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+      padding: 1rem 2rem 3rem;
+      animation: fadein 1.5s ease-in;
+    }
+    .articulo {
+      background: white;
+      border-radius: 16px;
+      padding: 1rem 1rem 1.4rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .articulo:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+    .articulo img, .articulo .slider img {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      max-height: 180px;
+      user-select: none;
+    }
+    .articulo h3 {
+      margin: 0.8rem 0 0.3rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #ff6f00;
+    }
+    .articulo p.descripcion {
+      margin: 0 0 0.7rem;
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.3;
+      min-height: 54px;
+    }
+    .precio {
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-bottom: 0.7rem;
+      color: #222;
+      user-select: none;
+    }
+    .comprar {
+      display: inline-block;
+      padding: 11px 17px;
+      background: #28a745;
+      color: white;
+      border-radius: 7px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.25s ease;
+      user-select: none;
+    }
+    .comprar:hover {
+      background: #1e7e34;
+    }
+
+    /* Carrusel sábanas */
+    .slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    .slider img {
+      width: 100%;
+      display: none;
+    }
+    .slider img.active {
+      display: block;
+    }
+    .slider-controls {
+      margin-top: 6px;
+      text-align: center;
+    }
+    .slider-controls button {
+      background: #ff8c00;
+      border: none;
+      padding: 5px 12px;
+      margin: 0 5px;
+      border-radius: 20px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.3s ease;
+    }
+    .slider-controls button:hover {
+      background: #ff6f00;
+    }
+
+    footer {
+      background: #222;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      user-select: none;
+    }
+
+    .contacto {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      background: rgba(255,255,255,0.95);
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      user-select: none;
+    }
+    .contacto a {
+      display: block;
+      color: #000;
+      text-decoration: none;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+    .contacto a:hover {
+      text-decoration: underline;
+      color: #ff8c00;
+    }
+
+    #mapa {
+      width: 100%;
+      height: 320px;
+      margin-top: 30px;
+      border-radius: 14px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      user-select: none;
+    }
+
+    @keyframes fadein {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://i.postimg.cc/DwHh7qpx/logoo.jpg" alt="Logo Iron & Deco Mel" />
+    <div>
+      <h1>Iron & Deco Mel</h1>
+      <p>¡Decoración con estilo y mucha onda!</p>
+    </div>
+  </header>
+
+  <div id="buscador">
+    <input type="text" id="input-busqueda" placeholder="Buscar artículo..." onkeyup="filtrarArticulos()" />
+  </div>
+
+  <section class="catalogo" id="catalogo">
+
+    <div class="articulo" data-nombre="mini linterna led potente recargable">
+      <img src="https://i.postimg.cc/Y9D8Vbs2/mini-linterna-led-potebnte-5500.jpg" alt="Mini linterna LED potente recargable" />
+      <h3>Mini linterna LED potente recargable</h3>
+      <p class="descripcion">Una linterna compacta y recargable, perfecta para iluminar tus aventuras nocturnas o emergencias.</p>
+      <p class="precio">$5.500</p>
+      <a class="comprar" href="https://wa.me/543537552759?text=Hola!%20Vengo%20de%20la%20tienda%20online,%20te%20quiero%20comprar%20Mini%20linterna%20LED%20potente%20recargable" target="_blank" rel="noopener">Contactar al vendedor</a>
+    </div>
+
+    <div class="articulo" data-nombre="pala para pizza">
+      <img src="https://i.postimg.cc/N0Mdx3dC/pala-para-pizza-4500.jpg" alt="Pala para pizza" />
+      <h3>Pala para pizza</h3>
+      <p class="descripcion">Ideal para preparar y servir pizzas caseras con estilo y facilidad.</p>
+      <p class="precio">$4.500</p>
+      <a class="comprar" href="https://wa.me/543537552759?text=Hola!%20Vengo%20de%20la%20tienda%20online,%20te%20quiero%20comprar%20Pala%20para%20pizza" target="_blank" rel="noopener">Contactar al vendedor</a>
+    </div>
+
+    <div class="articulo" data-nombre="linterna manual sin baterias">
+      <img src="https://i.postimg.cc/v893XLvy/linterna-manual.jpg" alt="Linterna manual sin baterías" />
+      <h3>Linterna manual sin baterías</h3>
+      <p class="descripcion">Linterna que funciona sin baterías, práctica y ecológica para emergencias o camping.</p>
+      <p class="precio">$6.500</p>
+      <a class="comprar" href="https://wa.me/543537552759?text=Hola!%20Vengo%20de%20la%20tienda%20online,%20te%20quiero%20comprar%20Linterna%20manual%20sin%20baterias" target="_blank" rel="noopener">Contactar al vendedor</a>
+    </div>
+
+    <div class="articulo" data-nombre="perchero para ropa">
+      <img src="https://i.postimg.cc/dVXyzgqx/perchero-42000.jpg" alt="Perchero para ropa" />
+      <h3>Perchero para ropa</h3>
+      <p class="descripcion">Elegante perchero de diseño para mantener tu ropa organizada y con estilo.</p>
+      <p class="precio">$42.000</p>
+      <a class="comprar" href="https://wa.me/543537552759?text=Hola!%20Vengo%20de%20la%20tienda%20online,%20te%20quiero%20comprar%20Perchero%20para%20ropa" target="_blank" rel="noopener">Contactar al vendedor</a>
+    </div>
+
+    <div class="articulo" data-nombre="auricular tipo bincha">
+      <img src="https://i.postimg.cc/Y23mpvrg/auriculares-tipo-bincha-9500.jpg" alt="Auricular tipo bincha" />
+      <h3>Auricular tipo bincha</h3>
+      <p class="descripcion">Auriculares cómodos con diseño clásico para escuchar música con gran calidad.</p>
+      <p class="precio">$9.500</p>
+      <a class="comprar" href="https://wa.me/543537552759?text=Hola!%20Vengo%20de%20la%20tienda%20online,%20te%20quiero%20comprar%20Auricular%20tipo%20bincha" target="_blank" rel="noopener">Contactar al vendedor</a>
+    </div>
+
+    <div class="articulo" data-nombre="auriculares f9">
+      <img src="https://i.postimg.cc/JnQt4FLm/auriculares-f9-9500.jpg" alt="Auriculares f9" />
+      <h3>Auriculares F9</h3>
+      <p class="descripcion">Auriculares inalámbricos con gran autonomía y sonido de alta fidelidad.</p>
+      <p class="precio">$9.500</p>
+      <a class="comprar" href="https://wa.me/543537552759?text=Hola!%20Vengo%20de%20la%20tienda%20online,%20te%20quiero%20comprar%20Auriculares%20F9" target="_blank" rel="noopener">Contactar al vendedor</a>
+    </div>
+
+    <div class="articulo" data-nombre="seca platos">
+      <img src="https://i.postimg.cc/QMGMgDNh/seca-platos-40000.jpg" alt="Seca platos" />
+      <h3>Seca platos</h3>
+      <p class="descripcion">Práctico seca platos para mantener tu cocina ordenada y sin humedad.</p>
+      <p class="precio">$40.000</p>
+      <a class="comprar" href="https://wa.me/543537552759?text=Hola!%20Vengo%20de%20la%20tienda%20online,%20te%20quiero%20comprar%20Seca%20platos" target="_blank" rel="noopener">Contactar al vendedor</a>
+    </div>
+
+    <div class="articulo" data-nombre="canasto para ropa">
+      <img src="https://i.postimg.cc/R0BM6TG0/canastro-para-ropa.jpg" alt="Canasto para ropa" />
+      <h3>Canasto para ropa</h3>
+      <p class="descripcion">Espacioso canasto para ropa sucia, resistente y con diseño práctico para tu hogar.</p>
+      <p class="precio">Consultar precio</p>
+      <a class="comprar" href="https://wa.me/543537552759?text=Hola!%20Vengo%20de%20la%20tienda%20online,%20te%20quiero%20consultar%20precio%20del%20Canasto%20para%20ropa" target="_blank" rel="noopener">Contactar al vendedor</a>
+    </div>
+
+    <div class="articulo" data-nombre="aro de luz para telefono">
+      <img src="https://i.postimg.cc/L6gRxWbX/aro-de-luxx.jpg" alt="Aro de luz para teléfono" />
+      <h3>Aro de luz para teléfono</h3>
+      <p class="descripcion">Ilumina tus videos y selfies con este aro de luz profesional y compacto.</p>
+      <p class="precio">$22.000</p>
+      <a class="comprar" href="https://wa.me/543537552759?text=Hola!%20Vengo%20de%20la%20tienda%20online,%20te%20quiero%20comprar%20Aro%20de%20luz%20para%20telefono" target="_blank" rel="noopener">Contactar al vendedor</a>
+    </div>
+
+    <!-- Artículo especial: Sábanas con carrusel -->
+    <div class="articulo" data-nombre="sábanas">
+      <div class="slider">
+        <img src="https://i.postimg.cc/90qSY6QH/sabanasx.jpg" alt="Sábanas 1" class="active" />
+        <img src="https://i.postimg.cc/LXqRG08N/sabanass.jpg" alt="Sábanas 2" />
+      </div>
+      <div class="slider-controls">
+        <button onclick="cambiarSlide(-1)">‹</button>
+        <button onclick="cambiarSlide(1)">›</button>
+      </div>
+      <h3>Sábanas</h3>
+      <p class="descripcion">Juego de sábanas suaves y resistentes, perfectas para renovar el look de tu habitación.</p>
+      <p class="precio">Consultar precio</p>
+      <a class="comprar" href="https://wa.me/543537552759?text=Hola!%20Vengo%20de%20la%20tienda%20online,%20te%20quiero%20consultar%20sobre%20las%20Sábanas" target="_blank" rel="noopener">Contactar al vendedor</a>
+    </div>
+
+  </section>
+
+  <div id="mapa">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22003.9418058331!2d-62.70341487676816!3d-32.63009556076504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b36a995b36045f%3A0xa054e7bb62f18a4d!2sBell%20Ville%2C%20C%C3%B3rdoba!5e0!3m2!1ses!2sar!4v1687000000000!5m2!1ses!2sar"
+      width="100%"
+      height="320"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+  </div>
+
+  <footer>
+    <p>© 2025 Iron & Deco Mel - Todos los derechos reservados</p>
+  </footer>
+
+  <div class="contacto">
